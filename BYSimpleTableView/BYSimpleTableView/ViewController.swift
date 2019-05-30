@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         tableViewDelegate?.set(didSelectRowAtIndexPath: { (tableView, indexPath, rowData, cellClassName) in
             print("\(cellClassName)")
         })
+        
+        refreshData()
     }
     
     
