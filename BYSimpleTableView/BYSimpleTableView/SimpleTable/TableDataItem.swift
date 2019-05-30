@@ -23,6 +23,8 @@ open class TableCellDataItem: NSObject {
 }
 
 open class TableDataItem: NSObject {
+    open var editingStyle = UITableViewCell.EditingStyle.none
+    
     open var firstData: Any? {
         if items.count > 0 {
             return items.first
@@ -106,12 +108,6 @@ open class TableDataItem: NSObject {
                 
                 sectionSource.cells.append(cellItem)
             }
-        } else {
-            let cellItem = TableCellDataItem()
-            cellItem.cellClassName = NSStringFromClass(cellClass)
-            cellItem.cellDelegate = delegate
-            
-            sectionSource.cells.append(cellItem)
         }
     }
     

@@ -94,7 +94,7 @@ open class TableViewDelegate: NSObject, UITableViewDelegate {
         if let tableViewCell = cell as? BaseTableViewCell {
             let sectionItem = dataItem.items[indexPath.section]
             let cellItem = sectionItem.cells[indexPath.row]
-            tableViewCell.cellWillDisplay(by: cellItem.cellData!)
+            tableViewCell.cellWillDisplay(by: cellItem.cellData as Any)
         }
     }
     
@@ -115,8 +115,10 @@ open class TableViewDelegate: NSObject, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let tableViewCell = cell as? BaseTableViewCell {
             let sectionItem = dataItem.items[indexPath.section]
-            let cellItem = sectionItem.cells[indexPath.row]
-            tableViewCell.cellDidEndDisplay(by: cellItem.cellData!)
+            if sectionItem.cells.count - 1 >= indexPath.row {
+                let cellItem = sectionItem.cells[indexPath.row]
+                tableViewCell.cellDidEndDisplay(by: cellItem.cellData!)
+            }
         }
     }
     
@@ -230,5 +232,13 @@ open class TableViewDelegate: NSObject, UITableViewDelegate {
         let className = dataItem.cellClassName(for: indexPath)!
         let rowData = dataItem.cellData(for: indexPath)
         didDeselectRowAtIndexPath?(tableView, indexPath, rowData as Any, className)
+    }
+    
+    public func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return dataItem.editingStyle
+    }
+    
+    public func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "delete"
     }
 }

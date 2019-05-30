@@ -15,9 +15,12 @@ class ViewController: UIViewController {
     private var tableViewDataSource: TableViewDataSource?
     private var dataItem = TableDataItem()
 
+    private var datas = ["1", "2"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataItem.editingStyle = .delete
         tableViewDelegate = TableViewDelegate(dataItem: dataItem)
         tableViewDataSource = TableViewDataSource(dataItem: dataItem)
         
@@ -33,6 +36,12 @@ class ViewController: UIViewController {
             print("\(cellClassName)")
         })
         
+        tableViewDataSource?.set(commitEditing: { (tableView, editingStyle, indexPath, rowData) in
+            self.datas.remove(at: indexPath.row)
+            print("\(editingStyle)----\(rowData)---\(indexPath)")
+            self.refreshData()
+        })
+        
         refreshData()
     }
     
@@ -41,7 +50,7 @@ class ViewController: UIViewController {
         // 先清除数据
         dataItem.clearData()
         
-        dataItem.add(cellClass: TestTableViewCell.self, dataItems: ["1", "2"])
+        dataItem.add(cellClass: TestTableViewCell.self, dataItems: datas)
         
         tableView.reloadData()
         

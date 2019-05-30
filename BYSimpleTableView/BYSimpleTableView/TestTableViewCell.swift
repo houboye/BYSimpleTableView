@@ -25,4 +25,7 @@ class TestTableViewCell: BaseTableViewCell {
         textLabel?.text = data as? String
     }
 
+    override func cellDidEndDisplay(by data: Any) {
+        print("Display")
+    }
 }
