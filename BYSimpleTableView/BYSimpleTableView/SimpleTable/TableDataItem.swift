@@ -99,14 +99,13 @@ open class TableDataItem: NSObject {
             return
         }
         
-        for dataItem in dataItems {
+        sectionSource.cells = dataItems.compactMap({ dataItem in
             let cellItem = TableCellDataItem()
             cellItem.cellClassName = NSStringFromClass(cellClass)
             cellItem.cellData = dataItem
             cellItem.cellDelegate = delegate
-            
-            sectionSource.cells.append(cellItem)
-        }
+            return cellItem
+        })
     }
     
     /// 清除数据源
