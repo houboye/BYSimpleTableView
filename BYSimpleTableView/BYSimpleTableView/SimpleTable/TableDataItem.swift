@@ -99,15 +99,13 @@ open class TableDataItem: NSObject {
             return
         }
         
-        if dataItems.count > 0 {
-            for dataItem in dataItems {
-                let cellItem = TableCellDataItem()
-                cellItem.cellClassName = NSStringFromClass(cellClass)
-                cellItem.cellData = dataItem
-                cellItem.cellDelegate = delegate
-                
-                sectionSource.cells.append(cellItem)
-            }
+        for dataItem in dataItems {
+            let cellItem = TableCellDataItem()
+            cellItem.cellClassName = NSStringFromClass(cellClass)
+            cellItem.cellData = dataItem
+            cellItem.cellDelegate = delegate
+            
+            sectionSource.cells.append(cellItem)
         }
     }
     
